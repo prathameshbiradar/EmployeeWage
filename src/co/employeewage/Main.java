@@ -10,46 +10,79 @@ public class Main {
         // Wage per Hour
         int wagePerHour = 20;
 
-        // full-time and part-time Hours
+        // Full-time and part-time hours (both 8 hours)
         int fullTimeHours = 8;
         int partTimeHours = 8;
 
-        // Working days in a month
-        int workingDaysPerMonth = 20;
+        // Total working hours and days limit
+        int totalWorkingHoursLimit = 100;
+        int totalWorkingDaysLimit = 20;
 
-        // Calculate daily wages for full-time and part-time hours
-        int fullTimeDailyWage = wagePerHour * fullTimeHours;
-        int partTimeDailyWage = wagePerHour * partTimeHours;
+        // Variables to track remaining working hours and days
+        int remainingHours = totalWorkingHoursLimit;
+        int remainingDays = totalWorkingDaysLimit;
 
-        //  monthly wage for full-time and part-time employees
-        int fullTimeMonthlyWage = fullTimeDailyWage * workingDaysPerMonth;
-        int partTimeMonthlyWage = partTimeDailyWage * workingDaysPerMonth;
+        // Variables to track total working hours and total wage
+        int totalWorkingHours = 0;
+        int totalWage = 0;
 
+        while (remainingHours > 0 && remainingDays > 0) {
+            remainingDays--;
 
+            int attendence = random.nextInt(3);  // 0 - absent, 1 - full-time, 2 - part-time
 
-        int attendence = random.nextInt(3); //generate 0,1,2
+            int dailyHoursWorked = 0;
+            int dailyWage = 0;
 
-        switch (attendence)
-        {
-            // Full-Time Employee
-            case 1:
-                System.out.println("Employee is Present");
-                System.out.println("Employee Type: Full-Time");
-                System.out.println("Daily wage is $"+fullTimeDailyWage);
-                System.out.println("Monthly Wage: $" + fullTimeMonthlyWage);
+            switch (attendence) {
+                case 1:  // Full-Time Employee
+                    dailyHoursWorked = fullTimeHours;
+                    dailyWage = wagePerHour * fullTimeHours;
+                    break;
+
+                case 2:  // Part-Time Employee
+                    dailyHoursWorked = partTimeHours;
+                    dailyWage = wagePerHour * partTimeHours;
+                    break;
+
+                default:  // Employee is Absent
+                    dailyHoursWorked = 0;
+                    dailyWage = 0;
+                    break;
+            }
+
+            // Deduct the worked hours from the remaining hours
+            if (remainingHours >= dailyHoursWorked) {
+                remainingHours -= dailyHoursWorked;
+                totalWorkingHours += dailyHoursWorked;
+                totalWage += dailyWage;
+            } else {
+                // If remaining hours are less than the daily hours worked, we end the loop
+                totalWorkingHours += remainingHours;
+                totalWage += remainingHours * wagePerHour;
                 break;
-            case 2:
-                // Part-Time Employee
-                System.out.println("Employee is present");
-                System.out.println("Employee Type: Full-Time");
-                System.out.println("Daily wage is $"+partTimeDailyWage);
-                System.out.println("Monthly Wage: $" + partTimeMonthlyWage);
+            }
+
+            // Print daily details
+            System.out.println("Day " + (totalWorkingDaysLimit - remainingDays) + ": ");
+            System.out.println("Employee Type: " + (attendence == 1 ? "Full-Time" : attendence == 2 ? "Part-Time" : "Absent"));
+            System.out.println("Daily Wage: ₹" + dailyWage);
+            System.out.println("Total Hours Worked: " + totalWorkingHours);
+            System.out.println("Remaining Hours: " + remainingHours);
+            System.out.println("Remaining Days: " + remainingDays);
+            System.out.println("Total Wage: ₹" + totalWage);
+            System.out.println();
+
+            // If total working hours or total working days limit is reached, break the loop
+            if (remainingHours <= 0 || remainingDays <= 0) {
                 break;
-            default:
-                // Employee is absent
-                System.out.println("Employee is absent");
-                System.out.println("Daily wage is $0");
+            }
         }
+
+        // Final output
+        System.out.println("Final Total Wage for the month: ₹" + totalWage);
+        System.out.println("Total Hours Worked: " + totalWorkingHours);
+        System.out.println("Total Days Worked: " + (totalWorkingDaysLimit - remainingDays));
 
 
 
