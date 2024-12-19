@@ -20,25 +20,34 @@ public class Main {
 
         int attendence = random.nextInt(3); //generate 0,1,2
 
-        // Full-Time Employee
-        if(attendence==1)
+        switch (attendence)
         {
-            System.out.println("Employee is Present");
-            System.out.println("Employee Type: Full-Time");
-            System.out.println("Daily wage is $"+fullTimeWage);
+            // Full-Time Employee
+            case 1:
+                System.out.println("Employee is Present");
+                System.out.println("Employee Type: Full-Time");
+                System.out.println("Daily wage is $"+fullTimeWage);
+                break;
+            case 2:
+                // Part-Time Employee
+                System.out.println("Employee is present");
+                System.out.println("Employee Type: Full-Time");
+                System.out.println("Daily wage is $"+partTimeWage);
+                break;
+            case 3:
+                // Employee is absent
+                System.out.println("Employee is absent");
+                System.out.println("Daily wage is $0");
         }
-        // Part-Time Employee
-        else if (attendence == 2) {
-            System.out.println("Employee is present");
-            System.out.println("Employee Type: Full-Time");
-            System.out.println("Daily wage is $"+partTimeWage);
 
-        }
-        // Employee is absent
-        else {
-            System.out.println("Employee is absent");
-            System.out.println("Daily wage is $0");
-        }
+
+
+
+
+
+
+
+
 
     }
 }
